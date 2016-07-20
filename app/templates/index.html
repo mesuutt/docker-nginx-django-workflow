@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%block content%}
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+            Docker uWSGI+Django Workflow on <b style="color:blue">{{ hostname }}</b> container
+      </a>
+    </div>
+  </div>
+</nav>
+<div class="container">
+<div class="alert alert-success" role="alert">
+    Admin panelinden yeni boksor ekleyebilirsiniz.
+    Kullanici: <b>admin</b>
+    Parola: <b>djangoworkflow</b>
+</div>
+<div class="container">
+    {% comment %}
+        Boksorler db den geliyor.
+        Resimleri ise staticden MEDIA_ROOTdan geliyor.
+    {% endcomment %}
+    {% for item in boxer_list %}
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <img src="{% get_media_prefix %}{{ item.image }}" alt="Resim yerine bu yaziyi goruyorsan MEDIA_ROOTda resim yok demektir. Admin panelden ekleyebilirsiniz" style="helght:250px">
+              <div class="caption">
+                <h3>{{ item.name }}</h3>
+                <p>{{ item.description }}</p>
+              </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% comment %}
+        Altta ki db den gelmiyor.
+        Resim staticden STATIC_ROOTdan geliyor.
+    {% endcomment %}
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <img src="{% get_static_prefix %}images/docker.jpg" style="helght:250px" alt="Bu resim STATIC_ROOTdan geliyor.">
+          <div class="caption">
+            <h3>Docker</h3>
+            <p>
+                Giderek un kazanan, "Benim bilgisayarımda çalışıyordu, sunucuda neden çalışmadı acaba?" sorusunu ortadan kaldiran boksor.
+                Kendi alaninda bir numara :))
+                <br>
+            </p>
+          </div>
+        </div>
+    </div>
+</div>
+{%endblock content%}
