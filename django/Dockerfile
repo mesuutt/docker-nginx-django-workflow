@@ -20,9 +20,9 @@ RUN ln -s /srv/supervisor-app.conf /etc/supervisor/conf.d/
 
 RUN pip install -r /srv/app/requirements.txt
 
-RUN chown -R uwsgi:uwsgi /srv
+RUN chown -R uwsgi:uwsgi /srv/app
 
 
-EXPOSE 9000 9001
+EXPOSE 9000
 
 CMD ["supervisord", "-n"]
