@@ -64,5 +64,5 @@ docker exec django2 supervisorctl restart app-uwsgi
 
 NGINX_CONT_IP=$(docker inspect --format '{{ .NetworkSettings.Networks.mynetwork.IPAddress }}' nginx)
 
-echo "Open: http://nginx or http://$NGINX_CONT_IP"
+echo "Open: http://$NGINX_CONT_IP"
 
