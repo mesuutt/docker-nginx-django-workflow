@@ -38,6 +38,8 @@ services:
             - mynetwork
         expose:
             - "9000"
+        environment:
+             DJANGO_SETTINGS_MODULE: myapp.settings.local
 
     django2:
         build: ./django
@@ -49,6 +51,8 @@ services:
             - mynetwork
         expose:
             - "9000"
+        environment:
+             DJANGO_SETTINGS_MODULE: myapp.settings.local
 
 
 

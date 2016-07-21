@@ -21,12 +21,14 @@ docker build -t mesuutt/uwsgi-django django/
 docker run -d \
     --net=mynetwork \
     --name django1 \
+    -e DJANGO_SETTINGS_MODULE='myapp.settings.local' \
     -v mystatic:/static \
     mesuutt/uwsgi-django
 
 docker run -d \
     --net=mynetwork \
     --name django2 \
+    -e DJANGO_SETTINGS_MODULE='myapp.settings.local' \
     -v mystatic:/static \
     mesuutt/uwsgi-django
 
