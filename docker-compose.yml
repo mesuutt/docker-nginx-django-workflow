@@ -1,0 +1,64 @@
+version: '2'
+
+networks:
+    mynetwork:
+        driver: bridge
+
+volumes:
+    mystatic:
+
+services:
+    nginx:
+        image: nginx:latest
+        container_name: nginx
+        networks:
+            - mynetwork
+        ports:
+            - '80:80'
+        volumes:
+            - mystatic:/static
+            - ./nginx/myapp.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+            - django1
+    pgdb:
+        image: postgres:latest
+        container_name: pgdb
+        environment:
+            POSTGRES_PASSWORD: 12345
+        networks:
+            - mynetwork
+
+    django1:
+        build: ./django
+        image: mesuutt/uwsgi-django
+        container_name: django1
+        volumes:
+            - mystatic:/static
+        networks:
+            - mynetwork
+        expose:
+            - "9000"
+
+    django2:
+        build: ./django
+        image: mesuutt/uwsgi-django
+        container_name: django2
+        volumes:
+            - mystatic:/static
+        networks:
+            - mynetwork
+        expose:
+            - "9000"
+
+
+
+# Make related changes on containers after create them
+# with execute below commands.
+
+#docker exec pgdb createdb -U postgres myappdb
+#docker cp postgres/myappdb.dump pgdb:/
+#docker exec pgdb psql -U postgres -f /myappdb.dump myappdb
+#docker cp volume_content/myapp django1:/static/
+#docker exec django1 /srv/app/manage.py collectstatic --noinput
+#docker exec django1 supervisorctl restart app-uwsgi
+#docker exec django2 supervisorctl restart app-uwsgi
