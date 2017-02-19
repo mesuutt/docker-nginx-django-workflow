@@ -33,6 +33,11 @@ docker run -d \
     mesuutt/uwsgi-django
 
 
+# Build nginx image
+cd nginx/
+docker build -t mesuutt/nginx .
+cd ../
+
 # Create nginx container
 docker run -d \
     --net=mynetwork \
@@ -40,7 +45,7 @@ docker run -d \
     -p 80:80 \
     -v mystatic:/static \
     -v `pwd`/nginx/myapp.conf:/etc/nginx/conf.d/default.conf \
-    nginx
+    mesuutt/nginx
 
 
 # Create Example app db
