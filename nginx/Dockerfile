@@ -1,4 +1,4 @@
-FROM mesuutt/nginx
+FROM nginx
 
 MAINTAINER Mesut Tasci
 
