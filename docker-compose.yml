@@ -9,7 +9,7 @@ volumes:
 
 services:
     nginx:
-        image: nginx:latest
+        image: mesuutt/nginx
         container_name: nginx
         networks:
             - mynetwork
